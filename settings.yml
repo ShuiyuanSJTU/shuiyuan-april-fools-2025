@@ -1,2 +1,109 @@
-example_setting:
+# 2024
+enable_easter_egg_2024:
+  type: bool
+  default: false
+  description:
+    zh_CN: "启用彩蛋(2024)"
+    en: "Enable easter egg (2024)"
+force_global_easter_egg_2024:
+  type: bool
+  default: false
+  description:
+    zh_CN: "强制启用全局彩蛋，即使不是4月1日(2024)"
+    en: "Force global easter egg (2024)"
+global_hint_text_2024:
+  type: string
+  default: "Ctrl+Shift+I"
+  description:
+    zh_CN: "全局彩蛋提示(2024)"
+    en: "Easter egg hint (2024)"
+new_user_title_2024:
+  type: string
+  default: "SVIP"
+  description:
+    zh_CN: "新的user-title文字(2024)"
+    en: "New user-title (2024)"
+avatar_replace_probability_2024:
+  type: float
+  default: 0.1
+  description:
+    zh_CN: "替换头像的概率(2024)"
+    en: "Probability of replacing avatar (2024)"
+post_content_shuffle_probability_2024:
+  type: float
+  default: 0.3
+  description:
+    zh_CN: "打乱帖子内容的概率(2024)"
+    en: "Probability of shuffling post content (2024)"
+post_content_shuffle_pairwise_probability_2024:
+  type: float
+  default: 0.3
+  description:
+    zh_CN: "被打乱帖子中，每一对字符被交换的概率(2024)"
+    en: "Probability of swapping each pair of characters in shuffled post content (2024)"
+icon_shuffle_probability_2024:
+  type: float
+  default: 0.3
+  description:
+    zh_CN: "打乱图标的概率(2024)"
+    en: "Probability of shuffling icons (2024)"
+
+# 2022
+enable_easter_egg_2022:
+  type: bool
+  default: false
+  description:
+    zh_CN: "启用彩蛋(2022)"
+    en: "Enable easter egg (2022)"
+show_bugs_2022:
+  type: bool
   default: true
+  description:
+    zh_CN: "在屏幕上显示虫子！(2022)"
+    en: "Show bugs on screen! (2022)"
+max_number_fruit_flies_2022:
+  type: integer
+  default: 10
+  min: 0
+  max: 100
+  description:
+    zh_CN: "显示果蝇的最大数量 (0-100) (2022)"
+    en: "The maximum number of fruit flies to display (0-100) (2022)"
+max_number_spiders_2022:
+  type: integer
+  default: 2
+  min: 0
+  max: 100
+  description:
+    zh_CN: "显示蜘蛛的最大数量 (0-100) (2022)"
+    en: "The maximum number of spiders to display (0-100) (2022)"
+bugs_can_interact_2022:
+  type: bool
+  default: true
+  description:
+    zh_CN: "果蝇会避开蜘蛛 (2022)"
+    en: "Flies will avoid the spiders (2022)"
+delay_start_2022:
+  type: integer
+  default: 500
+  description:
+    zh_CN: "第一个虫子出现前的时间（毫秒）(2022)"
+    en: "Time before the first bug appears in milliseconds. (2022)"
+mouseover_action_2022:
+  type: enum
+  default: random
+  choices:
+    - random  
+    - fly
+    - flyoff
+    - die
+    - multiply
+  description:
+    zh_CN: "当你用鼠标或手指拍打虫子时会发生什么 (2022)"
+    en: "What happens to the bugs when you swat the bugs with your mouse or finger. (2022)"  
+show_for_users_2022:
+  type: list
+  default: 'admins' 
+  description:
+    zh_CN: "控制谁可以看到虫子<br>输入用户名列表以显示给特定用户<br>输入组名以显示给特定组<br>输入“everyone”以显示给所有人。(2022)"
+    en: "Control who can see the bugs<br>Enter a list of usernames to show to specific users<br>Enter group names to show to specific groups<br>Enter \"everyone\" to show to all. (2022)"
