@@ -1,4 +1,4 @@
-import { replaceIcon, REPLACEMENTS } from "discourse/lib/icon-library";
+import { replaceIcon, REPLACEMENTS } from "discourse-common/lib/icon-library";
 import { shuffleArray } from "./utils";
 
 export default {
