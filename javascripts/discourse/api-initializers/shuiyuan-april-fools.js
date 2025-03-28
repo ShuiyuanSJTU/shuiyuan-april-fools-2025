@@ -5,8 +5,7 @@ import apiInitializer2024 from "../lib/2024/shuiyuan-april-fools-2024";
 import apiInitializer2025 from "../lib/2025/shuiyuan-april-fools-2025";
 import { shouldEnableComponent } from "../lib/utils";
 
-export default apiInitializer((api) => {
-
+export default apiInitializer("0.11.1", (api) => {
   window.showAprilFoolsModal = () => {
     if (!shouldEnableComponent()) {
       // eslint-disable-next-line no-console
