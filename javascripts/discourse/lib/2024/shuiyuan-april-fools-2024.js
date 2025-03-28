@@ -1,12 +1,13 @@
-import { apiInitializer } from "discourse/lib/api";
+
 import KeyboardShortcuts from "discourse/lib/keyboard-shortcuts";
-import discourseLater from "discourse/lib/later";
 import { isEnabled, isEnhanced, setEnabled } from "../localstorage-config";
 import { printHint1, printHint2 } from "./console";
 import Icons from "./icons";
 import { getTextNodes, randomSwap } from "./utils";
 
-export default apiInitializer("0.11.1", api => {
+const discourseLater = (fn, time) => setTimeout(fn, time);
+
+export default function initializer(api) {
   if (!settings.enable_easter_egg_2024 || !isEnabled(2024)) { return; }
 
   // add switch function to window
@@ -70,4 +71,4 @@ export default apiInitializer("0.11.1", api => {
   });
 
   if(!isMobleDevice){ discourseLater(printHint2, 3000); }
-});
+}

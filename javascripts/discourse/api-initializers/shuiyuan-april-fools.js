@@ -22,8 +22,8 @@ export default apiInitializer((api) => {
 
   if (!shouldEnableComponent()){ return; }
 
-  apiInitializer2025.initialize();
-  apiInitializer2024.initialize();
-  apiInitializer2022.initialize();
+  apiInitializer2025(api);
+  apiInitializer2024(api);
+  apiInitializer2022(api);
 
 });

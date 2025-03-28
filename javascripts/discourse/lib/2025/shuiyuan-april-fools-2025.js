@@ -1,9 +1,8 @@
 import { h } from "virtual-dom";
-import { apiInitializer } from "discourse/lib/api";
 import { isEnabled, isEnhanced } from "../localstorage-config";
 import { convert, convertTextInNode } from "./chinese-convert";
 
-export default apiInitializer("0.11.1", api => {
+export default function initializer(api) {
   if (!isEnabled(2025)) { return; }
 
   document.body.classList.add("shuiyuan-april-fools-2025-global");
@@ -62,4 +61,4 @@ export default apiInitializer("0.11.1", api => {
       }, 3000);
     }
   }
-});
+}

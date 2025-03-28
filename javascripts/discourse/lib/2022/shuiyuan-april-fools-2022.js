@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-new */
-import { apiInitializer } from "discourse/lib/api";
 import { isEnabled } from "../localstorage-config";
 import { BugController, SpiderController } from "./bugs";
 
-export default apiInitializer("0.11.1", api => {
+export default function initializer(api) {
   if (!settings.enable_easter_egg_2022) { return; }
   if (!isEnabled(2022)) { return; }
 
@@ -28,4 +27,4 @@ export default apiInitializer("0.11.1", api => {
       'maxDelay': $maxDelay, 'imageSprite': $spiderSprite, zoom: 4, canInteract: $canInteract
     });
   }
-});
+}
