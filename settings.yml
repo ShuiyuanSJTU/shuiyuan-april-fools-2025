@@ -1,3 +1,9 @@
+force_global_easter_egg:
+  type: bool
+  default: false
+  description:
+    zh_CN: "强制启用全局彩蛋，即使不是4月1日"
+    en: "Force global easter egg"
 # 2024
 enable_easter_egg_2024:
   type: bool
@@ -5,12 +11,6 @@ enable_easter_egg_2024:
   description:
     zh_CN: "启用彩蛋(2024)"
     en: "Enable easter egg (2024)"
-force_global_easter_egg_2024:
-  type: bool
-  default: false
-  description:
-    zh_CN: "强制启用全局彩蛋，即使不是4月1日(2024)"
-    en: "Force global easter egg (2024)"
 global_hint_text_2024:
   type: string
   default: "Ctrl+Shift+I"

@@ -1,39 +1,36 @@
 import { apiInitializer } from "discourse/lib/api";
 import KeyboardShortcuts from "discourse/lib/keyboard-shortcuts";
-import discourseLater from "discourse-common/lib/later";
+import discourseLater from "discourse/lib/later";
+import { isEnabled, isEnhanced, setEnabled } from "../localstorage-config";
 import { printHint1, printHint2 } from "./console";
 import Icons from "./icons";
 import { getTextNodes, randomSwap } from "./utils";
 
 export default apiInitializer("0.11.1", api => {
-  if (!settings.enable_easter_egg_2024) { return; }
-  
+  if (!settings.enable_easter_egg_2024 || !isEnabled(2024)) { return; }
+
   // add switch function to window
-  window.IWantMore = () => { 
-    window.localStorage.setItem("shuiyuan-april-fools-2024", "true");
+  window.IWantMore = () => {
+    setEnabled(2024, true);
     window.location.reload();
-  }
+  };
   window.IWantLess = () => {
-    window.localStorage.removeItem("shuiyuan-april-fools-2024");
+    setEnabled(2024, false);
     window.location.reload();
-  }
+  };
 
   const currentUser = api.getCurrentUser();
-  const inGroup = !!window.localStorage.getItem("shuiyuan-april-fools-2024");
-  const today = new Date();
-  const isAprilFoolsDay = today.getMonth() === 3 && today.getDate() === 1;
+  const inGroup = isEnhanced(2024);
   const isMobleDevice = api._lookupContainer("service:site").isMobileDevice;
   if (!inGroup) {
-    if (isAprilFoolsDay || settings.force_global_easter_egg_2024) {
-      // not in group, but it's April Fools' Day or forced
-      // enable global easter egg
-      document.body.classList.add("shuiyuan-april-fools-2024-global");
-      KeyboardShortcuts.unbind({
-        "ctrl+shift+i": null,
-        "F12": null,
-      });
-      if(!isMobleDevice){ discourseLater(printHint1, 5000); }
-    }
+    // not in group, but it's April Fools' Day or forced
+    // enable global easter egg
+    document.body.classList.add("shuiyuan-april-fools-2024-global");
+    KeyboardShortcuts.unbind({
+      "ctrl+shift+i": null,
+      "F12": null,
+    });
+    if(!isMobleDevice){ discourseLater(printHint1, 5000); }
     // do nothing if not in group
     return;
   }

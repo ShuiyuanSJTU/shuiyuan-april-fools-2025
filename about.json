@@ -11,8 +11,9 @@
   "assets": {
     "hint1_image": "assets/frieren.webp",
     "hint2_image": "assets/magic.webp",
-    "spider": "assets/2022_spider.png",    
-    "fly": "assets/2022_fly.png"
+    "spider": "assets/2022_spider.png",
+    "fly": "assets/2022_fly.png",
+    "daibanana": "assets/daibanana.jpg"
   },
   "modifiers": {}
 }

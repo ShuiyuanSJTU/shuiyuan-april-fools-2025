@@ -1,16 +1,7 @@
-/* eslint-disable no-alert */
 /* eslint-disable no-console */
-import Group from "discourse/models/group";
-import I18n from "discourse-i18n";
+import { i18n } from "discourse-i18n";
 import { sleep } from "./utils";
 
-async function findEnabledGroup() {
-    return (await Group.findAll()).findBy("name", settings.enabled_group_name);
-}
-
-function getGroupUrl() {
-    return new URL(`/g/${settings.enabled_group_name}`, document.location.href);
-}
 
 async function getBase64Image(url) {
     const response = await fetch(url);
@@ -53,12 +44,12 @@ const __console_obj_wrapper = {
     Settings: function (allowedSettings = []) {
         for (let setting of allowedSettings) {
             Object.defineProperty(this, setting, {
-                get: () => settings[setting],
-                set: (value) => settings[setting] = value,
+                get: () => settings[`${setting}_2024`],
+                set: (value) => { settings[`${setting}_2024`] = value; },
                 enumerable: true,
             });
         }
-        const specialHints = I18n.t(themePrefix("2024.hint2_console_settings_special_hint"))
+        const specialHints = i18n(themePrefix("2024.hint2_console_settings_special_hint"))
             .split("\n").filter((s)=>s.length > 0).map((s,i)=>`#${i+1} ${s.trim()}`);
         for (let hint of specialHints) {
             Object.defineProperty(this, hint, {
@@ -68,7 +59,7 @@ const __console_obj_wrapper = {
                     } else {
                         document.body.classList.add("shuiyuan-april-fools-2024-flip");
                     }
-                    return I18n.t(themePrefix("2024.hint2_console_settings_getter_meow"));
+                    return i18n(themePrefix("2024.hint2_console_settings_getter_meow"));
                 },
                 set: () => {
                     if (document.body.classList.contains("shuiyuan-april-fools-2024-invert")){
@@ -76,7 +67,7 @@ const __console_obj_wrapper = {
                     } else {
                         document.body.classList.add("shuiyuan-april-fools-2024-invert");
                     }
-                    console.error(I18n.t(
+                    console.error(i18n(
                         themePrefix("2024.hint2_console_settings_special_hint_setter_error")));
                 },
             });
@@ -84,26 +75,26 @@ const __console_obj_wrapper = {
     },
     LeaveGroup: function () {
         Object.defineProperty(this,
-            I18n.t(themePrefix("2024.hint2_console_leave_property")),
+            i18n(themePrefix("2024.hint2_console_leave_property")),
             {
                 get: () => {
                     setTimeout(async () => {
                         window.IWantLess();
                         window.location.reload();
                     }, 2000);
-                    return I18n.t(themePrefix("2024.hint2_console_leave_bye"));
+                    return i18n(themePrefix("2024.hint2_console_leave_bye"));
                 }
             });
     },
     JoinGroup: function () {
         Object.defineProperty(this,
-            I18n.t(themePrefix("2024.hint1_console_join_property")),
+            i18n(themePrefix("2024.hint1_console_join_property")),
             {
                 get: () => {
                     setTimeout(async () => {
                         window.IWantMore();
                     }, 100);
-                    return I18n.t(themePrefix("2024.hint1_console_join_wait"));
+                    return i18n(themePrefix("2024.hint1_console_join_wait"));
                 }
             });
     },
@@ -111,14 +102,13 @@ const __console_obj_wrapper = {
 
 export async function printHint1() {
     await imageToConsole(settings.theme_uploads.hint1_image, 35);
-    const groupUrl = new URL(`/g/${settings.enabled_group_name}`, document.location.href);
     console.log(
-        `%c${I18n.t(themePrefix("2024.hint1_text"))}\n%cRun window.IWantMore()`,
+        `%c${i18n(themePrefix("2024.hint1_text"))}\n%cRun IWantMore()`,
         'color:lime;background:black;font-size:2em;font-family:Arial,sans-serif;',
         'background:yellow;font-size:1.5em;font-family:Arial,sans-serif;'
     );
     console.log(
-        `%c${I18n.t(themePrefix("2024.hint1_shortcut_text"))}`,
+        `%c${i18n(themePrefix("2024.hint1_shortcut_text"))}`,
         'font-size:1.2em;font-family:Arial,sans-serif;'
     );
     const joinGroup = new __console_obj_wrapper.JoinGroup();
@@ -127,10 +117,10 @@ export async function printHint1() {
 
 export async function printHint2() {
     await imageToConsole(settings.theme_uploads.hint2_image, 50);
-    console.log("Run window.IWantLess() to leave.");
+    console.log("Run IWantLess() to leave.");
     await sleep(5000);
     console.log(
-        `%c${I18n.t(themePrefix("2024.hint2_text"))}`,
+        `%c${i18n(themePrefix("2024.hint2_text"))}`,
         'color:lime;background:black;font-size:2em;font-family:Arial,sans-serif;',
     );
     const allowedSettings = [
@@ -142,7 +132,7 @@ export async function printHint2() {
     const settingsProxy = new __console_obj_wrapper.Settings(allowedSettings);
     console.dir(settingsProxy);
     console.log(
-        `%c${I18n.t(themePrefix("2024.hint2_leave_text"))}`,
+        `%c${i18n(themePrefix("2024.hint2_leave_text"))}`,
         'font-size:1.2em;font-family:Arial,sans-serif;'
     );
     const leaveGroup = new __console_obj_wrapper.LeaveGroup();

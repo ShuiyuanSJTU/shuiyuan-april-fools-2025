@@ -1,0 +1,153 @@
+.april-fools-time-machine-modal {
+  .btn-text{
+    margin-top: 10px;
+  }
+
+  #april-fools-time-machine-modal-banana{
+    width: 100%;
+    max-width: 400px;
+    margin-top: 10px;
+  }
+}
+
+
+
+body.shuiyuan-april-fools-2025-global {
+  .topic-avatar:hover {
+    transform: scale(1.05);
+  }
+
+  .post-avatar img.avatar {
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: var(--header_background);
+  }
+
+  .topic-avatar .avatar-glow {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    transform: scale(0.98) translateZ(0);
+    filter: blur(20px);
+    background-size: 200% 200%;
+    opacity: 0.2;
+    transition: all 1.0s ease;
+    z-index: -1;
+  }
+
+  .topic-avatar {
+    position: relative;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+
+    &.trust-level-2 .avatar-glow {
+      background-image: linear-gradient(to left,
+          #ff5770,
+          #e4428d,
+          #c42da8,
+          #9e16c3,
+          #6501de,
+          #9e16c3,
+          #c42da8,
+          #e4428d,
+          #ff5770);
+    }
+
+    &.trust-level-3 .avatar-glow {
+      background-image: linear-gradient(to left,
+          #f00,
+          #ff4500,
+          #ff8c00,
+          #ffd700,
+          #ff8c00,
+          #ff4500,
+          #f00);
+    }
+  }
+
+  .topic-avatar:hover .avatar-glow {
+    margin-top: calc(var(--post-avatar-padding-top) - 5px);
+    opacity: 0.98;
+    filter: blur(15px);
+    animation: animateAvatarGlow 1.25s linear infinite;
+  }
+
+  .topic-avatar.trust-level-3:hover .avatar-glow {
+    transform: scale(1.2);
+  }
+
+
+  .avatar-holo {
+    position: absolute;
+    height: calc(100% - var(--post-avatar-padding-top));
+    width: calc(100% + var(--post-avatar-padding-right));
+    bottom: 0;
+    overflow: hidden;
+    padding: 0;
+    pointer-events: none;
+  }
+
+  .avatar-holo::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(0deg,
+        transparent,
+        transparent 30%,
+        white);
+    transform: rotate(-45deg);
+    transition: all 1s ease;
+    opacity: 0;
+    z-index: 2;
+
+  }
+
+  .topic-avatar:hover .avatar-holo::before {
+    opacity: 0.9;
+    transform: rotate(-45deg) translateY(120%);
+  }
+
+  .topic-meta-data {
+    &.trust-level-3 .names .first a {
+      color: #f60;
+    }
+
+    &.trust-level-2 .names .first a {
+      color: #c300ff;
+    }
+
+    &.trust-level-1 .names .first a {
+      color: #006aff;
+    }
+  }
+
+  .post-retort:hover img.emoji {
+    animation: retortWobble 0.8s infinite alternate-reverse ease-in-out;
+  }
+
+  @keyframes animateAvatarGlow {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    100% {
+      background-position: 200% 50%;
+    }
+  }
+
+  @keyframes retortWobble {
+    from {
+      transform: rotate(45deg);
+    }
+
+    to {
+      transform: rotate(-45deg);
+    }
+  }
+}

@@ -1,17 +1,22 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-new */
 import { apiInitializer } from "discourse/lib/api";
+import { isEnabled } from "../localstorage-config";
 import { BugController, SpiderController } from "./bugs";
 
 export default apiInitializer("0.11.1", api => {
   if (!settings.enable_easter_egg_2022) { return; }
-  var $maxFlies = settings.max_number_fruit_flies_2022;
-  var $maxSpiders = settings.max_number_spiders_2022;
-  var $minDelay = settings.delay_start_2022;
-  var $maxDelay = settings.delay_start_2022;
-  var $mouseOver = settings.mouseover_action_2022;
-  var $canInteract = settings.bugs_can_interact_2022;
+  if (!isEnabled(2022)) { return; }
 
-  var $flySprite = settings.theme_uploads.fly;
-  var $spiderSprite = settings.theme_uploads.spider;
+  let $maxFlies = settings.max_number_fruit_flies_2022;
+  let $maxSpiders = settings.max_number_spiders_2022;
+  let $minDelay = settings.delay_start_2022;
+  let $maxDelay = settings.delay_start_2022;
+  let $mouseOver = settings.mouseover_action_2022;
+  let $canInteract = settings.bugs_can_interact_2022;
+
+  let $flySprite = settings.theme_uploads.fly;
+  let $spiderSprite = settings.theme_uploads.spider;
 
   if (settings.show_bugs_2022) {
     new BugController({

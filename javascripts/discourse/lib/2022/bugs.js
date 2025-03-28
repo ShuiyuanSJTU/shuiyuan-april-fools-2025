@@ -1,11 +1,12 @@
+/* eslint-disable */
 // https://github.com/naidihr/discourse-bug-theme/blob/master/common/header.html
 // LICENSE: MIT
 
-var BugStart = false;
-var numBugsDead = 0;
-var spider = new Array();
+let BugStart = false;
+let numBugsDead = 0;
+let spider = new Array();
 
-var BugDispatch = {
+let BugDispatch = {
 
   options: {
     minDelay: 500,
@@ -100,7 +101,7 @@ var BugDispatch = {
     }
 
     // dont support transforms... quit
-    if (!this.transform) return;
+    if (!this.transform) {return;}
 
     // make bugs:
     this.bugs = [];
@@ -122,7 +123,7 @@ var BugDispatch = {
     // fly them in staggered:
     this.spawnDelay = [];
     for (i = 0; i < numBugs; i++) {
-      var delay = this.random(this.options.minDelay, this.options.maxDelay, true),
+      let delay = this.random(this.options.minDelay, this.options.maxDelay, true),
         thebug = this.bugs[i];
       // fly the bug onto the page:
       this.spawnDelay[i] = setTimeout((function (thebug) {
@@ -134,7 +135,7 @@ var BugDispatch = {
           }
 
         };
-      }(thebug)), delay);
+      })(thebug), delay);
 
       // add mouse over events:
       that.add_events_to_bug(thebug);
@@ -156,15 +157,15 @@ var BugDispatch = {
   },
 
   stop: function () {
-    for (var i = 0; i < this.bugs.length; i++) {
-      if (this.spawnDelay[i]) clearTimeout(this.spawnDelay[i]);
+    for (let i = 0; i < this.bugs.length; i++) {
+      if (this.spawnDelay[i]) {clearTimeout(this.spawnDelay[i]);}
       this.bugs[i].stop();
     }
   },
 
   end: function () {
-    for (var i = 0; i < this.bugs.length; i++) {
-      if (this.spawnDelay[i]) clearTimeout(this.spawnDelay[i]);
+    for (let i = 0; i < this.bugs.length; i++) {
+      if (this.spawnDelay[i]) {clearTimeout(this.spawnDelay[i]);}
       this.bugs[i].stop();
       this.bugs[i].remove();
     }
@@ -172,21 +173,21 @@ var BugDispatch = {
 
   reset: function () {
     this.stop();
-    for (var i = 0; i < this.bugs.length; i++) {
+    for (let i = 0; i < this.bugs.length; i++) {
       this.bugs[i].reset();
       this.bugs[i].walkIn();
     }
   },
 
   killAll: function () {
-    for (var i = 0; i < this.bugs.length; i++) {
-      if (this.spawnDelay[i]) clearTimeout(this.spawnDelay[i]);
+    for (let i = 0; i < this.bugs.length; i++) {
+      if (this.spawnDelay[i]) {clearTimeout(this.spawnDelay[i]);}
       this.bugs[i].die();
     }
   },
 
   add_events_to_bug: function (thebug) {
-    var that = this;
+    let that = this;
     if (thebug.bug) {
       if (thebug.bug.addEventListener) {
         thebug.bug.addEventListener('mouseover', function (e) {
@@ -207,7 +208,7 @@ var BugDispatch = {
       return;
     }
 
-    var posx = 0,
+    let posx = 0,
       posy = 0;
     if (e.client && e.client.x) {
       posx = e.client.x;
@@ -222,10 +223,10 @@ var BugDispatch = {
       posx = e.pageX - (document.body.scrollLeft + document.documentElement.scrollLeft);
       posy = e.pageY - (document.body.scrollTop + document.documentElement.scrollTop);
     }
-    var numBugs = this.bugs.length,
+    let numBugs = this.bugs.length,
       i = 0;
     for (i = 0; i < numBugs; i++) {
-      var pos = this.bugs[i].getPos();
+      let pos = this.bugs[i].getPos();
       if (pos) {
         if (Math.abs(pos.top - posy) + Math.abs(pos.left - posx) < this.options.eventDistanceToBug && !this.bugs[i].flyperiodical) {
           this.near_bug(this.bugs[i]);
@@ -236,10 +237,10 @@ var BugDispatch = {
   },
 
   check_if_spider_close_to_bug: function () {
-    var numBugs = this.bugs.length;
-    if (numBugs.length < 2) { return };
+    let numBugs = this.bugs.length;
+    if (numBugs.length < 2) { return; };
     //console.log("numBugs1=" + numBugs);
-    var i = 0;
+    let i = 0;
     for (i = 0; i < numBugs; i++) {
       if (this.bugs && this.bugs[i].options.bugType == 'spider') {
         var pos1 = this.bugs[i].getPos();
@@ -247,12 +248,12 @@ var BugDispatch = {
           spider[i] = this.bugs[i];
         }
       } else if (this.bugs && this.bugs[i].options.bugType == 'fly') {
-        var pos2 = this.bugs[i].getPos();
+        let pos2 = this.bugs[i].getPos();
         if (pos2) {
           let s;
           for (s = 0; s < spider.length; s++) {
             var pos1 = spider[s].getPos();
-            var dist = Math.abs(pos2.top - pos1.top - 30) + Math.abs(pos2.left - pos1.left - 30);
+            let dist = Math.abs(pos2.top - pos1.top - 30) + Math.abs(pos2.left - pos1.left - 30);
             if (dist < this.options.eventDistanceToBug) {
               this.near_bug(this.bugs[i], 'fly');
             }
@@ -295,12 +296,12 @@ var BugDispatch = {
       // drop dead!
       bug.die();
       numBugsDead++;
-      console.log('bugs killed: ' + numBugsDead)
+      console.log('bugs killed: ' + numBugsDead);
     } else if (mode === 'multiply') {
       if (!this.multiplyDelay && this.bugs.length < this.options.maxBugs) {
-        // spawn another: 
+        // spawn another:
         // create new bug:
-        var b = SpawnBug(),
+        let b = SpawnBug(),
           options = JSON.parse(JSON.stringify(this.options)),
           pos = bug.getPos(),
           that = this;
@@ -336,9 +337,9 @@ var BugDispatch = {
   },
 
   random: function (min, max, round) {
-    if (min == max) return ((round) ? Math.round(min) : min);
+    if (min == max) {return ((round) ? Math.round(min) : min);}
 
-    var result = ((min - 0.5) + (Math.random() * (max - min + 1)));
+    let result = ((min - 0.5) + (Math.random() * (max - min + 1)));
     if (result > max) {
       result = max;
     } else if (result < min) {
@@ -350,13 +351,13 @@ var BugDispatch = {
 
 };
 
-var BugController = function () {
+let BugController = function () {
   this.initialize.apply(this, arguments);
-}
+};
 BugController.prototype = BugDispatch;
 
-var SpiderController = function () {
-  var spiderOptions = {
+let SpiderController = function () {
+  let spiderOptions = {
     bugType: 'spider',
     imageSprite: 'spider-sprite.png',
     bugWidth: 69,
@@ -376,7 +377,7 @@ var SpiderController = function () {
   this.options = mergeOptions(this.options, spiderOptions);
   this.initialize.apply(this, arguments);
 
-}
+};
 SpiderController.prototype = BugDispatch;
 
 
@@ -385,7 +386,7 @@ SpiderController.prototype = BugDispatch;
 /**    Bug    **/
 /***************/
 
-var Bug = {
+let Bug = {
 
   options: {
     wingsOpen: false,
@@ -450,7 +451,7 @@ var Bug = {
   go: function () {
     if (this.transform) {
       this.drawBug();
-      var that = this;
+      let that = this;
 
       this.animating = true;
 
@@ -495,23 +496,23 @@ var Bug = {
 
   animate: function (t) {
 
-    if (!this.animating || !this.alive || !this.active) return;
+    if (!this.animating || !this.alive || !this.active) {return;}
 
-    var that = this;
+    let that = this;
     this.going = requestAnimFrame(function (t) {
       that.animate(t);
     });
 
-    if (!('_lastTimestamp' in this)) this._lastTimestamp = t;
+    if (!('_lastTimestamp' in this)) {this._lastTimestamp = t;}
 
-    var delta = t - this._lastTimestamp;
+    let delta = t - this._lastTimestamp;
 
-    if (delta < 40) return; // don't animate too frequently
+    if (delta < 40) {return;} // don't animate too frequently
 
-    // sometimes if the browser doesnt have focus, or the delta in request animation 
+    // sometimes if the browser doesnt have focus, or the delta in request animation
     // frame can be very large. We set a sensible max so that the bugs dont spaz out.
 
-    if (delta > 200) delta = 200;
+    if (delta > 200) {delta = 200;}
 
     this._lastTimestamp = t;
 
@@ -526,11 +527,11 @@ var Bug = {
     if (--this.edge_test_counter <= 0 && this.bug_near_window_edge()) {
       // if near edge, go away from edge
       this.angle_deg %= 360;
-      if (this.angle_deg < 0) this.angle_deg += 360;
+      if (this.angle_deg < 0) {this.angle_deg += 360;}
 
       if (Math.abs(this.directions[this.near_edge] - this.angle_deg) > 15) {
-        var angle1 = this.directions[this.near_edge] - this.angle_deg;
-        var angle2 = (360 - this.angle_deg) + this.directions[this.near_edge];
+        let angle1 = this.directions[this.near_edge] - this.angle_deg;
+        let angle2 = (360 - this.angle_deg) + this.directions[this.near_edge];
         this.large_turn_angle_deg = (Math.abs(angle1) < Math.abs(angle2) ? angle1 : angle2);
 
         this.edge_test_counter = 10;
@@ -546,7 +547,7 @@ var Bug = {
       this.angle_deg += this.random(1, this.options.maxSmallTurnDeg);
       this.next_small_turn();
     } else {
-      var dangle = this.random(1, this.options.maxWiggleDeg, true);
+      let dangle = this.random(1, this.options.maxWiggleDeg, true);
       if ((this.large_turn_angle_deg > 0 && dangle < 0) || (this.large_turn_angle_deg < 0 && dangle > 0)) {
         dangle = -dangle; // ensures both values either + or -
       }
@@ -556,8 +557,8 @@ var Bug = {
 
     this.angle_rad = this.deg2rad(this.angle_deg);
 
-    var dx = Math.cos(this.angle_rad) * this.options.walkSpeed * (delta / 100);
-    var dy = -Math.sin(this.angle_rad) * this.options.walkSpeed * (delta / 100);
+    let dx = Math.cos(this.angle_rad) * this.options.walkSpeed * (delta / 100);
+    let dy = -Math.sin(this.angle_rad) * this.options.walkSpeed * (delta / 100);
 
     this.moveBug((this.bug.left + dx), (this.bug.top + dy), (90 - this.angle_deg));
     this.walkFrame();
@@ -566,7 +567,7 @@ var Bug = {
 
   makeBug: function () {
     if (!this.bug && this.active) {
-      var row = (this.wingsOpen) ? '0' : '-' + this.options.bugHeight + 'px',
+      let row = (this.wingsOpen) ? '0' : '-' + this.options.bugHeight + 'px',
         bug = document.createElement('div');
       bug.className = 'bug';
       bug.style.background = 'transparent url(' + this.options.imageSprite + ') no-repeat 0 ' + row;
@@ -598,10 +599,10 @@ var Bug = {
     this.bug.top = y;
 
     // transform:
-    var trans = "translate(" + parseInt(x) + "px," + parseInt(y) + "px)";
+    let trans = "translate(" + parseInt(x) + "px," + parseInt(y) + "px)";
     if (deg) {
       //if(this.options.bugType=='spider'){console.log("translate("+(x)+"px, "+(y)+"px) rotate("+deg+"deg)")};
-      //if(this.options.bugType=='spider'){console.log("rotate("+deg+"deg)")};            
+      //if(this.options.bugType=='spider'){console.log("rotate("+deg+"deg)")};
       trans += " rotate(" + deg + "deg)";
     }
     trans += " scale(" + this.zoom + ")";
@@ -615,12 +616,12 @@ var Bug = {
     if (!this.bug) {
       this.makeBug();
     }
-    if (!this.bug) return;
+    if (!this.bug) {return;}
 
     if (top && left) {
       this.setPos(top, left);
     } else {
-      this.setPos(this.bug.top, this.bug.left)
+      this.setPos(this.bug.top, this.bug.left);
     }
     if (!this.inserted) {
       this.inserted = true;
@@ -631,7 +632,7 @@ var Bug = {
   toggleStationary: function () {
     this.stationary = !this.stationary;
     this.next_stationary();
-    var ypos = (this.wingsOpen) ? '0' : '-' + this.options.bugHeight + 'px';
+    let ypos = (this.wingsOpen) ? '0' : '-' + this.options.bugHeight + 'px';
     if (this.stationary) {
 
       this.bug.style.backgroundPosition = '0 ' + ypos;
@@ -641,15 +642,15 @@ var Bug = {
   },
 
   walkFrame: function () {
-    var xpos = (-1 * (this.walkIndex * this.options.bugWidth)) + 'px',
+    let xpos = (-1 * (this.walkIndex * this.options.bugWidth)) + 'px',
       ypos = (this.wingsOpen) ? '0' : '-' + this.options.bugHeight + 'px';
     this.bug.style.backgroundPosition = xpos + ' ' + ypos;
     this.walkIndex++;
-    if (this.walkIndex >= this.options.num_frames) this.walkIndex = 0;
+    if (this.walkIndex >= this.options.num_frames) {this.walkIndex = 0;}
   },
 
   fly: function (landingPosition) {
-    var currentTop = this.bug.top,
+    let currentTop = this.bug.top,
       currentLeft = this.bug.left,
       diffx = (currentLeft - landingPosition.left),
       diffy = (currentTop - landingPosition.top),
@@ -677,7 +678,7 @@ var Bug = {
     //angle = angle - (this.deg2rad(this.random(0,10)));
     //console.log('angle: ',this.rad2deg(angle));
 
-    var dx = Math.cos(angle) * this.options.flySpeed,
+    let dx = Math.cos(angle) * this.options.flySpeed,
       dy = Math.sin(angle) * this.options.flySpeed;
 
     if ((currentLeft > landingPosition.left && dx > 0) || (currentLeft > landingPosition.left && dx < 0)) {
@@ -700,7 +701,7 @@ var Bug = {
 
   flyRand: function () {
     this.stop();
-    var landingPosition = {};
+    let landingPosition = {};
     landingPosition.top = this.random(this.options.edge_resistance, document.documentElement.clientHeight - this.options.edge_resistance);
     landingPosition.left = this.random(this.options.edge_resistance, document.documentElement.clientWidth - this.options.edge_resistance);
 
@@ -709,7 +710,7 @@ var Bug = {
 
   startFlying: function (landingPosition) {
 
-    var currentTop = this.bug.top,
+    let currentTop = this.bug.top,
       currentLeft = this.bug.left,
       diffx = (landingPosition.left - currentLeft),
       diffy = (landingPosition.top - currentTop);
@@ -731,7 +732,7 @@ var Bug = {
     this.moveBug(currentLeft, currentTop, this.angle_deg);
 
     // start animation:
-    var that = this;
+    let that = this;
     this.flyperiodical = setInterval(function () {
       that.fly(landingPosition);
     }, 10);
@@ -742,19 +743,19 @@ var Bug = {
       this.makeBug();
     }
 
-    if (!this.bug) return;
+    if (!this.bug) {return;}
 
     this.stop();
     // pick a random side:
-    var side = Math.round(Math.random() * 4 - 0.5),
+    let side = Math.round(Math.random() * 4 - 0.5),
       d = document,
       e = d.documentElement,
       g = d.getElementsByTagName('body')[0],
       windowX = window.innerWidth || e.clientWidth || g.clientWidth,
       windowY = window.innerHeight || e.clientHeight || g.clientHeight;
-    if (side > 3) side = 3;
-    if (side < 0) side = 0;
-    var style = {},
+    if (side > 3) {side = 3;}
+    if (side < 0) {side = 0;}
+    let style = {},
       s;
     if (side === 0) {
       // top:
@@ -769,19 +770,19 @@ var Bug = {
       style.top = windowY + (2 * this.options.bugHeight);
       style.left = Math.random() * windowX;
     } else {
-      // left: 
+      // left:
       style.top = Math.random() * windowY;
       style.left = (-3 * this.options.bugWidth);
     }
-    var row = (this.wingsOpen) ? '0' : '-' + this.options.bugHeight + 'px';
+    let row = (this.wingsOpen) ? '0' : '-' + this.options.bugHeight + 'px';
     this.bug.style.backgroundPosition = (-3 * this.options.bugWidth) + 'px ' + row;
-    this.bug.top = style.top
-    this.bug.left = style.left
+    this.bug.top = style.top;
+    this.bug.left = style.left;
 
     this.drawBug();
 
     // landing position:
-    var landingPosition = {};
+    let landingPosition = {};
     landingPosition.top = this.random(this.options.edge_resistance, document.documentElement.clientHeight - this.options.edge_resistance);
     landingPosition.left = this.random(this.options.edge_resistance, document.documentElement.clientWidth - this.options.edge_resistance);
 
@@ -793,19 +794,19 @@ var Bug = {
       this.makeBug();
     }
 
-    if (!this.bug) return;
+    if (!this.bug) {return;}
 
     this.stop();
     // pick a random side:
-    var side = Math.round(Math.random() * 4 - 0.5),
+    let side = Math.round(Math.random() * 4 - 0.5),
       d = document,
       e = d.documentElement,
       g = d.getElementsByTagName('body')[0],
       windowX = window.innerWidth || e.clientWidth || g.clientWidth,
       windowY = window.innerHeight || e.clientHeight || g.clientHeight;
-    if (side > 3) side = 3;
-    if (side < 0) side = 0;
-    var style = {},
+    if (side > 3) {side = 3;}
+    if (side < 0) {side = 0;}
+    let style = {},
       s;
     if (side === 0) {
       // top:
@@ -820,14 +821,14 @@ var Bug = {
       style.top = windowY + (0.3 * this.options.bugHeight);
       style.left = Math.random() * windowX;
     } else {
-      // left: 
+      // left:
       style.top = Math.random() * windowY;
       style.left = (-1.3 * this.options.bugWidth);
     }
-    var row = (this.wingsOpen) ? '0' : '-' + this.options.bugHeight + 'px';
+    let row = (this.wingsOpen) ? '0' : '-' + this.options.bugHeight + 'px';
     this.bug.style.backgroundPosition = (-3 * this.options.bugWidth) + 'px ' + row;
-    this.bug.top = style.top
-    this.bug.left = style.left
+    this.bug.top = style.top;
+    this.bug.left = style.left;
 
     this.drawBug();
 
@@ -839,7 +840,7 @@ var Bug = {
   flyOff: function () {
     this.stop();
     // pick a random side to fly off to, where 0 is top and continuing clockwise.
-    var side = this.random(0, 3),
+    let side = this.random(0, 3),
       style = {},
       d = document,
       e = d.documentElement,
@@ -860,7 +861,7 @@ var Bug = {
       style.top = windowY + 200;
       style.left = Math.random() * windowX;
     } else {
-      // left: 
+      // left:
       style.top = Math.random() * windowY;
       style.left = -200;
     }
@@ -870,7 +871,7 @@ var Bug = {
   die: function () {
     this.stop();
     //pick death style:
-    var deathType = this.random(0, this.options.numDeathTypes - 1);
+    let deathType = this.random(0, this.options.numDeathTypes - 1);
 
     this.alive = false;
     this.drop(deathType);
@@ -897,12 +898,12 @@ var Bug = {
   },
 
   dropping: function (t, startPos, finalPos, rotationRate, deathType) {
-    var elapsedTime = t - this._lastTimestamp,
+    let elapsedTime = t - this._lastTimestamp,
       deltaPos = (0.002 * (elapsedTime * elapsedTime)),
       newPos = startPos + deltaPos;
     //console.log(t, elapsedTime, deltaPos, newPos);
 
-    var that = this;
+    let that = this;
 
 
     if (newPos >= finalPos) {
@@ -916,8 +917,8 @@ var Bug = {
       this.transform("rotate(" + (90 - this.angle_deg) + "deg) scale(" + this.zoom + ")");
       this.bug.style.top = null;
       // because it is (or might be) zoomed and rotated, we cannot just just bottom = 0. Figure out real bottom position:
-      var rotationOffset = ((this.options.bugWidth * this.zoom) - (this.options.bugHeight * this.zoom)) / 2;
-      var zoomOffset = ((this.options.bugHeight) / 2) * (1 - this.zoom);
+      let rotationOffset = ((this.options.bugWidth * this.zoom) - (this.options.bugHeight * this.zoom)) / 2;
+      let zoomOffset = ((this.options.bugHeight) / 2) * (1 - this.zoom);
       this.bug.style.bottom = Math.ceil((rotationOffset - zoomOffset)) + 'px'; // because its rotated and zoomed.
       this.bug.style.left = this.bug.left + 'px';
       this.bug.style.backgroundPosition = '-' + ((deathType * 2) * this.options.bugWidth) + 'px 100%';
@@ -932,7 +933,7 @@ var Bug = {
       that.dropping(t, startPos, finalPos, rotationRate, deathType);
     });
 
-    if (elapsedTime < 20) return;
+    if (elapsedTime < 20) {return;}
 
     this.angle_deg = ((this.angle_deg + rotationRate) % 360);
     this.angle_rad = this.deg2rad(this.angle_deg);
@@ -942,8 +943,8 @@ var Bug = {
 
   twitch: function (deathType, legPos) {
     //this.bug.style.back
-    if (!legPos) legPos = 0;
-    var that = this;
+    if (!legPos) {legPos = 0;}
+    let that = this;
     if (deathType === 0 || deathType === 1) {
       that.twitchTimer = setTimeout(function () {
         that.bug.style.backgroundPosition = '-' + ((deathType * 2 + (legPos % 2)) * that.options.bugWidth) + 'px 100%';
@@ -964,9 +965,9 @@ var Bug = {
     return deg * this.deg2rad_k;
   },
   random: function (min, max, plusminus) {
-    if (min == max) return min;
-    var result = Math.round(min - 0.5 + (Math.random() * (max - min + 1)));
-    if (plusminus) return Math.random() > 0.5 ? result : -result;
+    if (min == max) {return min;}
+    let result = Math.round(min - 0.5 + (Math.random() * (max - min + 1)));
+    if (plusminus) {return Math.random() > 0.5 ? result : -result;}
     return result;
   },
 
@@ -983,13 +984,13 @@ var Bug = {
   bug_near_window_edge: function () {
     this.near_edge = 0;
     if (this.bug.top < this.options.edge_resistance)
-      this.near_edge |= this.NEAR_TOP_EDGE;
+      {this.near_edge |= this.NEAR_TOP_EDGE;}
     else if (this.bug.top > document.documentElement.clientHeight - this.options.edge_resistance)
-      this.near_edge |= this.NEAR_BOTTOM_EDGE;
+      {this.near_edge |= this.NEAR_BOTTOM_EDGE;}
     if (this.bug.left < this.options.edge_resistance)
-      this.near_edge |= this.NEAR_LEFT_EDGE;
+      {this.near_edge |= this.NEAR_LEFT_EDGE;}
     else if (this.bug.left > document.documentElement.clientWidth - this.options.edge_resistance)
-      this.near_edge |= this.NEAR_RIGHT_EDGE;
+      {this.near_edge |= this.NEAR_RIGHT_EDGE;}
     return this.near_edge;
   },
 
@@ -1006,7 +1007,7 @@ var Bug = {
 };
 
 var SpawnBug = function () {
-  var newBug = {},
+  let newBug = {},
     prop;
   for (prop in Bug) {
     if (Bug.hasOwnProperty(prop)) {
@@ -1026,11 +1027,11 @@ var SpawnBug = function () {
  **/
 
 var mergeOptions = function (obj1, obj2, clone) {
-  if (typeof (clone) == 'undefined') {
+  if (typeof (clone) === 'undefined') {
     clone = true;
   }
-  var newobj = (clone) ? cloneOf(obj1) : obj1;
-  for (var key in obj2) {
+  let newobj = (clone) ? cloneOf(obj1) : obj1;
+  for (let key in obj2) {
     if (obj2.hasOwnProperty(key)) {
       newobj[key] = obj2[key];
     }
@@ -1039,18 +1040,18 @@ var mergeOptions = function (obj1, obj2, clone) {
 };
 
 var cloneOf = function (obj) {
-  if (obj == null || typeof (obj) != 'object')
-    return obj;
+  if (obj == null || typeof (obj) !== 'object')
+    {return obj;}
 
-  var temp = obj.constructor(); // changed
+  let temp = obj.constructor(); // changed
 
-  for (var key in obj) {
+  for (let key in obj) {
     if (obj.hasOwnProperty(key)) {
       temp[key] = cloneOf(obj[key]);
     }
   }
   return temp;
-}
+};
 
 /* Request animation frame polyfill */
 /* http://paulirish.com/2011/requestanimationframe-for-smart-animating/ */
